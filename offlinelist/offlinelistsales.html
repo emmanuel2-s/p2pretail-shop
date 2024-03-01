@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <!-- <link rel="icon" href="%PUBLIC_URL%/favicon.ico" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="shortcut icon" href="../assets/images/logoP.png" />
+
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <!-- <link rel="manifest" href="%PUBLIC_URL%/manifest.json" > -->
+
+    <link
+      rel="stylesheet"
+      href="../assets/bootstrap-5.1.3-dist/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="../assets/themify-icons/themify-icons.css" />
+    <link rel="stylesheet" href="../assets/themify-icons/fonts/themify.woff" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../assets/css/vertical-layout-light/style.css"
+    />
+
+    <link
+      rel="apple-touch-icon"
+      sizes="120x120"
+      href="../assets/images/120x120.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="144x144"
+      href="../assets/images/144x144.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="../assets/images/152x152.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="167x167"
+      href="../assets/images/167x167.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="../assets/images/180x180.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="192x192"
+      href="../assets/images/192x192.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="512x512"
+      href="../assets/images/512x512.png"
+    />
+
+    <link
+      rel="apple-touch-icon"
+      href="../assets/images/apple-touch-icon-iphone.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="../assets/images/apple-touch-icon-iphone.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="167x167"
+      href="../assets/images/apple-touch-icon-ipad-retina.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="../assets/images/apple-touch-icon-iphone-retina.png"
+    />
+    <title>P2P Offline-System</title>
+  </head>
+
+  <body onload="verifyAuth()">
+    <div class="content-wrapper">
+      <div class="row mt-1">
+        <div class="col-lg-12 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <div class="pb-3">
+                <div
+                  class="d-flex justify-content-between d-sm-flex justify-content-sm-between mb-5 mb-sm-4"
+                >
+                  <img
+                    src="../assets/images/ACPN.png"
+                    class="float-left"
+                    alt="ACPN logo"
+                    width="80px"
+                    height="80px"
+                  />
+
+                  <div class="text-center page-head">
+                    <span class="card-title">SALES</span>
+                  </div>
+
+                  <img
+                    src="../assets/images/P2Plogo.png"
+                    class="pcn-badge float-right"
+                    alt="P2P logo"
+                    width="80px"
+                    height="80px"
+                  />
+                </div>
+                <!-- {/*
+              <img
+                src="/assets/images/p2plogo.png"
+                class="pcn-badge d-md-block d-none float-right"
+                alt="P2P logo"
+                width="80px"
+                height="80px"
+              />
+              */} -->
+              </div>
+              <div class="mt-1 d-flex float-right align-item-center">
+                <a
+                  href="../offlinesaleshop.html"
+                  class="btn btn-primary btn-sm btn-icon-text text-white align-items-center d-flex justify-content-end mx-1"
+                >
+                  <i
+                    class="ti-shopping-cart"
+                    style="
+                      margin-right: 6px;
+                      color: white;
+                      font-size: 18px;
+                      margin-top: 2px;
+                    "
+                    title="Back"
+                  ></i>
+                  <span class="d-none d-md-block pt-1">GO TO SHOP</span></a
+                >
+              </div>
+              <!-- {/* <Limit setLimit={setLimit} /> */} -->
+              <form class="row">
+                <div class="form-group col-md-6 mx-auto">
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      placeholder="Search Sales"
+                      aria-label="Recipient's username"
+                      onkeyup="searchSale(event.target.value)"
+                    />
+                  </div>
+                </div>
+              </form>
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>STATUS</th>
+                      <th>ACTION</th>
+                      <th class="text-right">S/N</th>
+                      <th class="text-center">TRANSACTION DATE</th>
+                      <th class="text-center">DOCUMENT NO.</th>
+                      <th class="text-center">TOTAL QTY</th>
+                      <th class="text-center">TOTAL AMOUNT</th>
+                      <th class="text-center">CUSTOMER NAME</th>
+                      <th class="text-center">PAYMENT MODE</th>
+                    </tr>
+                  </thead>
+                  <tbody id="salesTable"></tbody>
+                </table>
+                <div class="row mt-5 h-5" id="rowspan"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- {/* Receipt Modal */} -->
+    <div
+      class="modal fade"
+      id="receiptModal"
+      tabindex="-1"
+      data-backdrop="static"
+      aria-labelledby="receiptModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog modal-sm modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="receiptModalLabel">Receipt</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body p-2" id="receipt">
+           
+            </table>
+            </div> 
+      </div>
+    </div>
+
+    <!-- <div class="modal fade" id="receiptModal" tabIndex="-1" aria-labelledby="receiptModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog modal-sm modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="receiptModalLabel">Receipt</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body p-2">
+                            <div style="border-bottom: double">
+                                <h6 class="text-center">{getBusiness.
+                                    businessName}</h6>
+                            </div>
+                            <table class="table table-borderless table-sm">
+                               
+                                <tbody>
+                                    {receipt && receipt?.stockSalesDetails?.map((pro, index) =>
+
+                                        <div key={index}>
+                                            <div scope="row" style="font-size: 0.6rem; line-height: 1">#{index + 1}</div>
+                                            <div class=" text-left" style="font-size: 0.6rem; line-height: 1"><span class="font-weight-medium">Product: </span>{pro?.productName}</div>
+                                            <div class="text-left" style="font-size: 0.6rem; line-height: 1"><span class="font-weight-medium">Pack: </span>{pro?.measureName}</div>
+                                            <div class="" style="font-size: 0.6rem; line-height: 1"><span class="font-weight-medium">Qty: </span>{pro.orderedQuantity}</div>
+                                            <div class="" style="font-size: 0.6rem; line-height: 1"><span class="font-weight-medium">Ext. Price: </span>&#8358;{formatter1.format(pro?.extendedPrice)}</div>
+                                            <div class="" style="font-size: 0.6rem; line-height: 1"><span class="font-weight-medium">Dosage: </span>{pro?.dosage}</div>
+                                            <hr class='my-1' />
+                                        </div>
+                                        )}
+                                </tbody>
+                            </table>
+                            <div class="mt-2 pt-2" style="border-top: double">
+                                <div class="d-flex justify-content-between">
+                                    <p style="font-size: 0.6rem; line-height: 1">Subtotal:</p>
+                                    <p style="font-size: 0.6rem; line-height: 1">&#8358; {formatter1.format(receipt?.totalAmount)}</p>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <p style="font-size: 0.6rem; line-height: 1">Total Charge:</p>
+                                    <p style="font-size: 0.6rem; line-height: 1">&#8358;  {formatter1.format(receipt?.totalCharges ? receipt?.totalCharges : 0)}</p>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <p style="font-size: 0.6rem; line-height: 1">Total Discount:</p>
+                                    <p style="font-size: 0.6rem; line-height: 1">&#8358;  {formatter1.format(receipt?.totalDiscounts ? receipt?.totalDiscounts : 0)}</p>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <p style="font-size: 0.6rem; line-height: 1">Transaction No.:</p>
+                                    <p style="font-size: 0.6rem; line-height: 1">{receipt?.documentNo}</p>
+                                </div>
+                            </div>
+                            <div class="mt-2 pt-2 text-left" style="border-top: double">
+                                <p style="font-size: 0.6rem; line-height: 1">Remark: <span class="text-capitalize">{receipt?.comment}</span></p>
+                                <p style="font-size: 0.6rem; line-height: 1">Bill Prepared By: {receipt?.authorizedBy}</p>
+                                <p style="font-size: 0.6rem; line-height: 1">Bill Printed Time: {moment().format('MMM D, YYYY hh:mm')}</p>
+                                <p style="font-size: 0.6rem; line-height: 1">Bill Settled By: {receipt?.customerName ? receipt?.customerName : "General Customer"}</p>
+                                <p style="font-size: 0.6rem; line-height: 1">Payment Type: <span class="text-capitalize">{receipt?.paymentMode}</span></p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="closeModal" class="btn btn-sm btn-secondary btn-icon-text" data-dismiss="modal">Close</button>
+                            <a type="button" class="btn btn-sm btn-primary btn-icon-text"
+                            >PRINT</a>
+                            <button type="button" class="btn btn-sm btn-primary btn-icon-text"
+                            onClick={handlePrint}
+                            >PRINT</button>
+                        </div>
+                    </div>
+                </div>
+            </div >  -->
+
+    <script src="../offlinelist/offlinelistsales.js"></script>
+    <script src="../assets/vendors/js/vendor.bundle.base.js"></script>
+
+    <!-- <script src="/assets/js/bootstrap.min.js"></script> -->
+
+    <script src="../assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="../assets/vendors/datatables.net/jquery.dataTables.js"></script>
+    <script src="../assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+    <script src="../assets/js/dataTables.select.min.js"></script>
+
+    <script src="../assets/js/off-canvas.js"></script>
+    <script src="../assets/js/hoverable-collapse.js"></script>
+    <script src="../assets/js/template.js"></script>
+    <script src="../assets/js/settings.js"></script>
+    <script src="../assets/js/todolist.js"></script>
+
+    <script src="../assets/js/dashboard.js"></script>
+    <script src="../assets/js/Chart.roundedBarCharts.js"></script>
+  </body>
+</html>

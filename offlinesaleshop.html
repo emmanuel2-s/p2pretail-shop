@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <!-- <link rel="icon" href="%PUBLIC_URL%/favicon.ico" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="shortcut icon" href="assets/images/logoP.png" />
+
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <!-- <link rel="manifest" href="%PUBLIC_URL%/manifest.json" > -->
+
+    <link
+      rel="stylesheet"
+      href="assets/bootstrap-5.1.3-dist/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="assets/themify-icons/themify-icons.css" />
+    <link rel="stylesheet" href="assets/themify-icons/fonts/themify.woff" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <link rel="stylesheet" href="sweetalert2.min.css">    
+    <link rel="stylesheet" href="print.min.css"> 
+
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="assets/css/vertical-layout-light/style.css"
+    />
+
+    <link
+      rel="apple-touch-icon"
+      sizes="120x120"
+      href="assets/images/120x120.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="144x144"
+      href="assets/images/144x144.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="assets/images/152x152.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="167x167"
+      href="assets/images/167x167.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/images/180x180.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="192x192"
+      href="assets/images/192x192.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="512x512"
+      href="assets/images/512x512.png"
+    />
+
+    <link
+      rel="apple-touch-icon"
+      href="assets/images/apple-touch-icon-iphone.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="assets/images/apple-touch-icon-iphone.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="167x167"
+      href="assets/images/apple-touch-icon-ipad-retina.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/images/apple-touch-icon-iphone-retina.png"
+    />
+    <title>P2P Offline-System</title>
+  </head>
+
+  <body onload="verifyAuth()">
+    <div>
+      <!-- {/* <div class="main-panel"> */} -->
+      <div class="content-wrapper">
+        <div class="mb-2">
+          <!-- <div class=" fs-6 font-weight-bold bg-white py-2 px-2 w-50 mx-auto text-center" id="notify" style="z-index: 1000; transition-delay: 2s;">
+          </div> -->
+          <div class="d-flex justify-content-end">
+            <button
+              class="btn btn-danger btn-sm rounded text-white py-2 d-flex align-items-center fs-5"
+              onclick="logout()"
+            
+            >
+              <i
+                class="ti-power-off"
+                style="margin-right: 4px; color: white; font-size: 25px"
+                title="Logout"
+              ></i>
+              <span class="d-none d-md-block fs-6">LogOut</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="card mt-1 mb-1">
+          <div class="card-body">
+            <div
+              class="d-flex justify-content-between d-sm-flex justify-content-sm-between"
+            >
+              <img
+                src="assets/images/ACPN.png"
+                class="float-left"
+                alt="ACPN logo"
+                width="80px"
+                height="80px"
+              />
+              <div class="text-center page-head">
+                <span class="card-title product-cards"
+                  >OFFLINE RETAIL SHOP</span
+                >
+              </div>
+
+              <img
+                src="assets/images/P2Plogo.png"
+                class="pcn-badge float-right"
+                alt="P2P logo"
+                width="80px"
+                height="80px"
+              />
+            </div>
+            <div
+              class="button-list d-flex align-item-center justify-content-end"
+            >
+              <a
+                href="offlinelist/offlinelistsales.html"
+                class="btn btn-dark btn-sm btn-icon-text text-white d-flex mx-1 rounded align-items-center"
+              >
+                <i
+                  class="ti-arrow-left"
+                  style="
+                    color: white;
+                    font-size: 18px;
+                    margin-top: 3px;
+                    margin-right: 6px;
+                  "
+                  title="Back"
+                ></i>
+                <span class="d-none d-md-block pt-2 fs-7">BACK TO LIST</span></a
+              >
+
+              <button
+                type="button"
+                class="btn btn-primary btn-sm btn-icon-text d-flex float-right mr-1 rounded align-items-center"
+                onclick="validateOrderQuantity()"
+                data-toggle="modal"
+                data-target="#saveForLaterModal"
+              >
+                <i
+                  class="ti-save-alt"
+                  style="margin-right: 6px; font-size: 18px; margin-top: 2px"
+                  title="Submit"
+                ></i>
+                <span class="d-none d-md-block pt-2 fs-7">SAVE FOR LATER</span>
+              </button>
+
+              <button
+                type="button"
+                class="btn btn-primary align-items-center btn-sm btn-icon-text d-flex float-right rounded"
+                onclick="validateOrderQuantity()"
+                data-toggle="modal"
+                data-target="#paymentModal"
+              >
+                <span class="mr-1 pt-2" title="Submit">&#8358;</span>
+                <span class="d-none d-md-block pt-2 fs-7">PAY NOW</span>
+              </button>
+
+              <button
+                type="button"
+                class="btn btn-danger btn-sm btn-icon-text align-items-center d-flex ml-1 rounded"
+                onclick="cancelSale()"
+              >
+                <i
+                  class="ti-close"
+                  style="
+                    margin-right: 6px;
+                    color: white;
+                    font-size: 18px;
+                    margin-top: 2px;
+                  "
+                  title="Cancel"
+                ></i>
+                <span class="d-none d-md-block pt-2 fs-7">CANCEL</span>
+              </button>
+              <button
+                class="btn btn-success btn-sm btn-icon-text align-items-center text-white d-flex mx-1 rounded"
+                onclick="synctoOffline()"
+              >
+                <i
+                  class="ti-reload"
+                  style="
+                    margin-right: 6px;
+                    color: white;
+                    font-size: 18px;
+                    margin-top: 2px;
+                  "
+                  title="Sync"
+                ></i>
+                <span class="d-none d-md-block pt-2 fs-7"> SYNC </span>
+              </button>
+            </div>
+
+            <!-- {/* </div> */} -->
+          </div>
+        </div>
+
+        <div class="row mb-1 mt-4 mt-sm-0">
+          <div class="col-md-8 grid-margin stretch-card">
+            <div class="card lap">
+              <div class="card-body">
+                <form>
+                  <div class="form-group col-md-8 mx-auto">
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        id="input"
+                        name="scannerTextBox"
+                        class="form-control form-control-sm"
+                        placeholder="Search Product"
+                        aria-label="Recipient's username"
+                        onkeyup="searchProduct(event.target.value)"
+                      />
+                      <!-- {/* <button type="button" id="closeModal" class="btn btn-sm btn-secondary btn-icon-text" data-dismiss="modal" onClick={closeModal}>Close</button> */} -->
+                      <a
+                        href="#"
+                        type="button"
+                        class="btn btn-sm btn-primary d-flex align-items-center rounded-right fs-6"
+                        >scan</a
+                      >
+                    </div>
+                  </div>
+                </form>
+                <div
+                  class="table-responsive"
+                  style="height: 500px; overflow: auto"
+                >
+                  <table class="table table-striped">
+                    <thead
+                      style="
+                        position: sticky;
+                        top: 0;
+                        z-index: 1;
+                        background-color: white;
+                      "
+                    >
+                      <tr>
+                        <th class=""></th>
+                        <th class="fs-8">S/N</th>
+                        <th class="fs-7">PRO. INFO.</th>
+                        <th class="fs-7">MEASURE</th>
+                        <th class="">QTY.</th>
+                        <th class="">DOSAGE</th>
+                        <th class="text-right">PRICE</th>
+                        <th class="">AVA. QTY.</th>
+                      </tr>
+                    </thead>
+                    <tbody class="" id="productsTable"></tbody>
+                  </table>
+                    <div class="row mt-5 h-5" id="row"></div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- order details -->
+          <div class="col-md-4 grid-margin stretch-card">
+            <div class="card lap rounded">
+              <div class="card-body pt-2 pr-0 pl-1" id="orderD">
+                
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- {/* </div> */} -->
+
+      <!-- {/* Payment Modal */} -->
+      <div
+        class="modal fade"
+        id="paymentModal"
+        tabindex="-1"
+        aria-labelledby="paymentModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="paymentModalLabel">Payment</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+                onclick="Cancel()"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body py-1">
+              <form class="row mt-1">
+                <div class="form-group col-md-6">
+                  <label htmlFor="customerPhone" class="form-label float-left"
+                    >Customer Phone
+
+                    <!-- <span class='text-danger'> Enter a valid phone number</span> -->
+                  </label>
+                  <input
+                    type="tel"
+                    class="form-control text-capitalize parent"
+                    name="customerPhone"
+                    id="customerPhone"
+                    placeholder="Customer Phone"
+                     onchange=" handleOnChange(event)"
+
+                  />
+                </div>
+                <div class="form-group col-md-6">
+                  <label htmlFor="customerName" class="form-label float-left"
+                    >Customer Name
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control text-capitalize parent"
+                    name="customerName"
+                    id="customerName"
+                    placeholder="Customer Name"
+                     onchange=" handleOnChange(event)"
+
+                  />
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label htmlFor="comment" class="form-label float-left"
+                    >Comment</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control text-capitalize parent"
+                    name="comment"
+                    id="comment"
+                     onchange="handleOnChange(event)"
+                     placeholder="comment"
+                  />
+                </div>
+                <div class="form-group col-md-6">
+                  <label htmlFor="paymentMode" class="form-label float-left"
+                    >Payment Mode<span class="text-danger">*</span>
+                  </label>
+                  <select
+                    class="form-control"
+                    id="paymentMode"
+                    name="paymentMode"
+                     onchange="handleOnChange(event)"
+                     required
+                  >
+                    <option value="">Select Payment Mode</option>
+                    <option value="cash">Cash</option>
+                    <option value="pos">POS</option>
+                    <option value="transfer">Transfer</option>
+                  </select>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                id="closeModal"
+                class="btn btn-secondary btn-icon-text"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary btn-icon-text"
+                onclick="doSubmit()"
+              >
+                PAY
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- {/* Save For Later Modal */} -->
+      <div
+        class="modal fade"
+        id="saveForLaterModal"
+        tabindex="-1"
+        data-backdrop="static"
+        aria-labelledby="saveForLaterModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="saveForLaterModalLabel">
+                Save Customer Order For Later
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body py-1">
+              <form class="row mt-1">
+                <div class="form-group col-md-6">
+                  <label htmlFor="orderTag" class="form-label float-left"
+                    >Order Tag</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control text-capitalize parent"
+                    name="orderTag"
+                    id="orderTag"
+                    placeholder="Order Tag"
+                    onchange="handleOnChangeLater(event)"
+                    required
+                  />
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                id="closeModalforlater"
+                class="btn btn-secondary btn-icon-text"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" class="btn btn-primary btn-icon-text" onclick="saveForLater(setInfo.orderTag)">
+                SAVE
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- {/* Receipt Modal */} -->
+      <button
+        class="mx-3"
+        id="toggleModal"
+        title="Submit"
+        data-toggle="modal"
+        data-target="#receiptModal"
+        hidden
+      ></button>
+
+      <div
+        class="modal fade"
+        id="receiptModal"
+        tabindex="-1"
+        data-backdrop="static"
+        aria-labelledby="receiptModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog modal-sm modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="receiptModalLabel">Receipt</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+                onclick="Cancel()"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body p-2" id="receipt">
+            </div>
+            <div class="modal-footer" id="btnPrints">
+        </div>
+        </div>
+      </div>
+    </div>
+    
+
+    
+    <!-- location Modal -->
+          <button
+        class="mx-3"
+        id="toggleModall"
+        title="Submit"
+        data-toggle="modal"
+        data-target="#locationModal"
+        hidden
+      ></button>
+      <div
+        class="modal fade"
+        id="locationModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        data-backdrop="static"
+        aria-hidden="true"
+      >
+        <div
+          class="modal-dialog modal-lg modal-dialog-centered"
+        >
+          <div class="modal-content">
+            <div class="modal-header text-center">
+              <span class="font-weight-bold text-center">CHOOSE LOCATION</span>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-12 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>ACTIONS</th>
+                              <th>S/N</th>
+                              <th>LOCATION NAME</th>
+                              <th>LOCATION ADDRESS</th>
+                            </tr>
+                          </thead>
+                          <tbody id="loc-body">
+                          </tbody>
+                        </table>
+                      </div>
+                     
+                    </div>
+
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    <script src="offlinesaleshop.js"></script>
+    <script src="sweetalert2.all.min.js"></script>
+    <script src="print.min.js"></script>
+    <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script src="notify.js"></script>
+    <script src="assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="assets/vendors/datatables.net/jquery.dataTables.js"></script>
+    <script src="assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+    <script src="assets/js/dataTables.select.min.js"></script>
+
+    <script src="assets/js/off-canvas.js"></script>
+    <script src="assets/js/hoverable-collapse.js"></script>
+    <script src="assets/js/template.js"></script>
+    <script src="assets/js/settings.js"></script>
+    <script src="assets/js/todolist.js"></script>
+
+    <script src="assets/js/dashboard.js"></script>
+    <script src="assets/js/Chart.roundedBarCharts.js"></script>
+  </body>
+</html>
