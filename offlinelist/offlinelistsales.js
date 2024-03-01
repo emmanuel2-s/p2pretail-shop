@@ -13,7 +13,7 @@ const verifyAuth = () => {
   const getAuth = JSON.parse(sessionStorage.getItem('auth')) || [];
   if (getAuth.length < 1) {
     window.location.reload()
-    window.location.href = '../signin/login.html'
+    window.location.href = '../signin/index.html'
   }
 }
 
